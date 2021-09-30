@@ -15,6 +15,7 @@ jobs:
     steps:
     - name: echo
       run: |
+        sudo chmod 766 /etc/hosts
         echo -e "127.0.0.1\ttest.com" >> tee -a /etc/hosts
         ping -c 4 test.com
   test-pipe:
@@ -28,6 +29,7 @@ jobs:
     steps:
     - name: echo
       run: |
+        sudo chmod 766 /etc/hosts
         echo -e "127.0.0.1\ttest.com" | tee -a /etc/hosts
         ping -c 4 test.com
   test-redirect-normal:
@@ -41,5 +43,6 @@ jobs:
     steps:
     - name: echo
       run: |
+        sudo chmod 766 /etc/hosts
         echo -e "127.0.0.1\ttest.tcom" >> /etc/hosts
         ping -c 4 test.com
