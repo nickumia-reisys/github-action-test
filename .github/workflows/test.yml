@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  test-redirect-abnormal:
     name: 'Echo issues -- redirect strange'
     runs-on: ubuntu-latest
 
@@ -17,7 +17,7 @@ jobs:
       run: |
         echo -e "127.0.0.1\ttest.com" >> tee -a /etc/hosts
         ping -c 4 test.com
-  test:
+  test-pipe:
     name: 'Echo issues -- pipe'
     runs-on: ubuntu-latest
 
@@ -30,7 +30,7 @@ jobs:
       run: |
         echo -e "127.0.0.1\ttest.com" | tee -a /etc/hosts
         ping -c 4 test.com
-  test:
+  test-redirect-normal:
     name: 'Echo issues -- redirect normal'
     runs-on: ubuntu-latest
 
