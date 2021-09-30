@@ -4,45 +4,56 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-redirect-abnormal:
-    name: 'Echo issues -- redirect strange'
+  test-redirect-normal:
+    name: 'Echo issues -- redirect normal'
     runs-on: ubuntu-latest
-
     defaults:
       run:
         shell: bash
+    steps:
+    - name: echo
+      run: |
+        sudo chmod 766 /etc/hosts
+        echo -e "127.0.0.1\ttest.com" >> /etc/hosts
+        ping -c 4 test.com
 
+  test-redirect-abnormal:
+    name: 'Echo issues -- redirect strange'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     steps:
     - name: echo
       run: |
         sudo chmod 766 /etc/hosts
         echo -e "127.0.0.1\ttest.com" >> tee -a /etc/hosts
         ping -c 4 test.com
-  test-pipe:
-    name: 'Echo issues -- pipe'
-    runs-on: ubuntu-latest
 
+  test-redirect-abnormal-bats:
+    name: 'Echo issues -- redirect normal'
+    runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
+    steps:
+    - name: Install dependencies
+      run: |
+        sudo apt-get install -y bats
+    - name: echo in bats
+      run: |
+        sudo chmod 766 /etc/hosts
+        bats echo.bats
 
+  test-pipe:
+    name: 'Echo issues -- pipe'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     steps:
     - name: echo
       run: |
         sudo chmod 766 /etc/hosts
         echo -e "127.0.0.1\ttest.com" | tee -a /etc/hosts
-        ping -c 4 test.com
-  test-redirect-normal:
-    name: 'Echo issues -- redirect normal'
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        shell: bash
-
-    steps:
-    - name: echo
-      run: |
-        sudo chmod 766 /etc/hosts
-        echo -e "127.0.0.1\ttest.com" >> /etc/hosts
         ping -c 4 test.com
