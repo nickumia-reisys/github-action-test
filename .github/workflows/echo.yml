@@ -31,12 +31,14 @@ jobs:
         ping -c 4 test.com
 
   test-redirect-abnormal-bats:
-    name: 'Echo issues -- redirect normal'
+    name: 'Echo issues -- redirect strange - bats'
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
     - name: Install dependencies
       run: |
         sudo apt-get install -y bats
