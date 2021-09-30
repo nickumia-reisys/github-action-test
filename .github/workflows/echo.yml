@@ -1,4 +1,4 @@
-name: 'test'
+name: 'echo'
 on:
   pull_request:
   workflow_dispatch:
@@ -44,5 +44,5 @@ jobs:
     - name: echo
       run: |
         sudo chmod 766 /etc/hosts
-        echo -e "127.0.0.1\ttest.tcom" >> /etc/hosts
+        echo -e "127.0.0.1\ttest.com" >> /etc/hosts
         ping -c 4 test.com
