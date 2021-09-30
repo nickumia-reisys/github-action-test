@@ -1,0 +1,45 @@
+name: 'test'
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: 'Echo issues -- redirect strange'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: echo
+      run: |
+        echo -e "127.0.0.1\ttest.com" >> tee -a /etc/hosts
+        ping -c 4 test.com
+  test:
+    name: 'Echo issues -- pipe'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: echo
+      run: |
+        echo -e "127.0.0.1\ttest.com" | tee -a /etc/hosts
+        ping -c 4 test.com
+  test:
+    name: 'Echo issues -- redirect normal'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: echo
+      run: |
+        echo -e "127.0.0.1\ttest.tcom" >> /etc/hosts
+        ping -c 4 test.com
