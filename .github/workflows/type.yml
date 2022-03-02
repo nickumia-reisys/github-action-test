@@ -1,0 +1,27 @@
+name: 'type'
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-type-directions:
+    name: 'type --help'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - name: man type
+      run: |
+        type --help
+
+  test-type-p:
+    name: 'type -p'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - name: type -p
+      run: |
+        type -p git apt
