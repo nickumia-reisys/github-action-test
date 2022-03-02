@@ -49,5 +49,4 @@ jobs:
         with:
           path: .
           label: nothing
-          workspace: nothing
           auto_approve: true
