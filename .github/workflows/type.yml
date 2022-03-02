@@ -38,7 +38,7 @@ jobs:
           /github/workspace/aws-iam-authenticator version
 
           # Try to find it
-          type -ap git apt aws-iam-authenticator
+          type -a git apt aws-iam-authenticator
 
     steps:
       - name: terraform apply (development)
