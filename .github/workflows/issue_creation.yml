@@ -28,8 +28,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_JOB: ${{ toJson(github)['job'] }}
-          PR: ${{ github.event.pull_request.number }}
-          GITHUB_ATTEMPTS: ${GITHUB_RUN_ATTEMPT}
+          GITHUB_ATTEMPTS: ${{ toJson(github)['run_attempt'] }}
+          LAST_COMMIT: ${{ toJson(github)['event']['commits'][0]['url'] }}
+          LAST_RUN_BY: ${{ toJson(github)['triggering_actor'] }}
         with:
           filename: .github/issue.md
           update_existing: true
