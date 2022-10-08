@@ -1,7 +1,6 @@
 ---
-title: Someone just pushed
-labels: bug, enhancement
+title: Test {{ date | date('dddd, MMMM Do') }}
+labels: bug
 ---
-Payload?: {{ payload }}
 Action State: {{ payload.action }}
 Someone just pushed, oh no! Here's who did it: {{ payload.sender.login }}.
