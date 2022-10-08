@@ -12,7 +12,6 @@ jobs:
       - name: Do work
         run: |
           echo 1
-          exit 1
       - uses: JasonEtco/create-an-issue@v2
         if: ${{ failure() }}
         env:
