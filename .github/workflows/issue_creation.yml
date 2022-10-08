@@ -13,8 +13,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Do something
         run: |
-          echo "I'm Happy"; 
-          exit 1
+          echo "I'm Happy" && exit 1
       - name: Create Issue if Failure
         if: ${{ failure() }}
         - uses: JasonEtco/create-an-issue@v2
