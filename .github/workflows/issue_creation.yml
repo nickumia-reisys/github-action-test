@@ -30,7 +30,7 @@ jobs:
           GITHUB_JOB: ${{ toJson(github)['job'] }}
           GITHUB_ATTEMPTS: ${{ github.run_attempt }}
           REPO_URL: ${{ toJson(github)['repository'] }}
-          LAST_COMMITL: ${{ toJson(github)['sha'] }}
+          LAST_COMMIT: ${{ toJson(github)['sha'] }}
           LAST_RUN_BY: ${{ github.actor }}
         with:
           filename: .github/issue.md
