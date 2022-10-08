@@ -1,4 +1,13 @@
-on: [push]
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      options:
+        description: 'Test Failure?'
+        type: boolean
+        required: true
+        default: true
+
 name: Create an issue on push
 permissions:
   contents: read
@@ -9,11 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Do work
-        run: |
-          echo 1
       - uses: JasonEtco/create-an-issue@v2
-        if: ${{ failure() }}
+        if: ${{ github.event.inputs.options }}
+        update_existing: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
