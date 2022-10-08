@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       options:
-        description: 'Test Failure?'
+        description: 'Check for Successful Run'
         type: boolean
         required: true
         default: true
