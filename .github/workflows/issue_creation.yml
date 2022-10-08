@@ -1,25 +1,13 @@
-name: Issue Creation test
-
-on:
-  push:
-
+on: [push]
+name: Create an issue on push
 permissions:
   contents: read
-  issues: write
-
+  issues: write 
 jobs:
-  test:
-    name: Fail + Issue
+  stuff:
     runs-on: ubuntu-latest
     steps:
-    - name: checkout
-      uses: actions/checkout@v2
-   - name: Do something
-     run: |
-       echo 'I"m Happy'
-       exit 1
-    - name: Create Issue if Failure
-      if: ${{ failure() }}
+      - uses: actions/checkout@v2
       - uses: JasonEtco/create-an-issue@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
