@@ -2,7 +2,7 @@
 name: Matrix 'needs' Test
 
 on:
-  push:
+  workflow_dispatch:
 
 jobs:
   pre-step:

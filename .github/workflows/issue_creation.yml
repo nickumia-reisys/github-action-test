@@ -1,0 +1,24 @@
+---
+name: Issue Creation test
+
+on:
+  push:
+
+jobs:
+  issue:
+    name: Deploy Something
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Do something
+        run: |
+          echo "I'm Happy"
+          exit 1
+      - name: Create Issue if Failure
+        if: ${{ failure() }}
+        - uses: JasonEtco/create-an-issue@v2
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            filename: .github/issue.md
