@@ -24,10 +24,12 @@ jobs:
         run: |
           echo "$GITHUB_CONTEXT"
       - uses: JasonEtco/create-an-issue@v2
-        if: ${{ github.event.inputs.options }}
+        if: ${{ (github.event.inputs.options) || (github.event_name == 'push') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_JOB: ${{ toJson(github)['job'] }}
+          PR: ${{ github.event.pull_request.number }}
+          GITHUB_ATTEMPTS: ${GITHUB_RUN_ATTEMPT}
         with:
           filename: .github/issue.md
           update_existing: true
