@@ -27,6 +27,7 @@ jobs:
         if: ${{ github.event.inputs.options }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_JOB: ${{ toJson(github)['job'] }}
         with:
           filename: .github/issue.md
           update_existing: true
