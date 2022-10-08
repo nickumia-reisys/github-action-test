@@ -1,6 +1,8 @@
 ---
-title: Test {{ date | date('dddd, MMMM Do') }}
+title: {{ payload.workflow }} Failure - {{ date | date('dddd, MMMM Do') }}
 labels: bug
 ---
-Action State: {{ payload.action }}
-Someone just pushed, oh no! Here's who did it: {{ payload.sender.login }}.
+
+Job Failed: {{ payload.job }}
+Number of times run: {{ payload.run_attmept }}
+Last run by: {{ payload.triggering_actor }}
