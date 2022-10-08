@@ -1,0 +1,39 @@
+---
+name: Matrix 'needs' Test
+
+on:
+  push:
+
+jobs:
+  pre-step:
+    name: Step 0
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        event: [1, 2]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Do something
+        run: echo ${{ matrix.event }}
+
+  step-a:
+    name: Step A
+    runs-on: ubuntu-latest
+    needs: pre-step.matrix.1
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Do something
+        run: echo A
+
+  step-b:
+    name: Step B
+    runs-on: ubuntu-latest
+    needs: pre-step.matrix.2
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Do something
+        run: echo B
