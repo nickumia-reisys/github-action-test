@@ -29,7 +29,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_JOB: ${{ toJson(github)['job'] }}
           GITHUB_ATTEMPTS: ${{ github.run_attempt }}
-          REPO_URL: ${{ github.repository }}
           LAST_COMMIT: ${{ github.sha }}
           LAST_RUN_BY: ${{ github.actor }}
         with:
