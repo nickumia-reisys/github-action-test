@@ -38,8 +38,19 @@ jobs:
           filename: .github/issue.md
           update_existing: true
       - name: Test
+        # Not working
         uses: actions/add-to-project@v0.3.0
         with:
           project-url: https://github.com/orgs/GSA/projects/24
           github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
           labeled: bug
+      - name: Assign NEW issues and NEW pull requests to project (ORG)
+        uses: srggrs/assign-one-project-github-action@1.2.1
+        if: github.event.action == 'opened'
+        with:
+          project: 'https://github.com/orgs/GSA/projects/24'
+      - name: Assign NEW issues and NEW pull requests to project (USER)
+        uses: srggrs/assign-one-project-github-action@1.2.1
+        if: github.event.action == 'opened'
+        with:
+          project: 'https://github.com/users/nickumia-reisys/projects/1'
