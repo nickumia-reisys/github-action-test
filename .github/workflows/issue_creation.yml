@@ -37,7 +37,9 @@ jobs:
         with:
           filename: .github/issue.md
           update_existing: true
-      - uses: actions/add-to-project@v0.3.0
+      - name: Test
+        uses: actions/add-to-project@v0.3.0
         with:
           project-url: https://github.com/orgs/GSA/projects/24
           github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+          labeled: bug
