@@ -17,11 +17,11 @@ jobs:
     #   with:
     #     project: 'https://github.com/users/nickumia-reisys/projects/1'
     #     column_name: 'No status'
-    - name: Assign NEW issues and NEW pull requests to project 2
-      uses: srggrs/assign-one-project-github-action@1.2.1
-      if: github.event.action == 'opened'
-      with:
-        project: 'https://github.com/users/nickumia-reisys/projects/1'
+    # - name: Assign NEW issues and NEW pull requests to project 2
+    #   uses: srggrs/assign-one-project-github-action@1.2.1
+    #   if: github.event.action == 'opened'
+    #   with:
+    #     project: 'https://github.com/users/nickumia-reisys/projects/1'
     - name: Assign NEW issues and NEW pull requests to project 2
       uses: srggrs/assign-one-project-github-action@1.2.1
       if: github.event.action == 'opened'
