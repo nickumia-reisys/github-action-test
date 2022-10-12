@@ -37,7 +37,7 @@ jobs:
         with:
           filename: .github/issue.md
           update_existing: true
-      - uses: actions/add-to-project@0.3.0
+      - uses: actions/add-to-project@v0.3.0
         with:
           project-url: https://github.com/users/nickumia-reisys/projects/1
           github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
