@@ -12,6 +12,11 @@ name: Create an issue on push
 permissions:
   contents: read
   issues: write 
+  pull-requests: read
+  repository-projects: read
+  actions: read
+env:
+  MY_GITHUB_TOKEN: ${{ secrets.ADD_TO_PROJECT_PAT }}
 
 jobs:
   stuff:
@@ -34,3 +39,10 @@ jobs:
         with:
           filename: .github/issue.md
           update_existing: true
+      - name: Test
+        # Not working
+        uses: actions/add-to-project@v0.3.0
+        with:
+          project-url: https://github.com/orgs/GSA/projects/24
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+          labeled: bug
