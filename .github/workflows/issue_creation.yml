@@ -12,6 +12,9 @@ name: Create an issue on push
 permissions:
   contents: read
   issues: write 
+  pull-requests: read
+  repository-projects: read
+  actions: read
 
 jobs:
   stuff:
@@ -34,3 +37,9 @@ jobs:
         with:
           filename: .github/issue.md
           update_existing: true
+      - uses: actions/add-to-project@0.3
+        with:
+          project-url: https://github.com/users/nickumia-reisys/projects/1
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+          labeled: bug, deploy-failure
+          label-operator: OR
