@@ -50,7 +50,7 @@ jobs:
         uses: srggrs/assign-one-project-github-action@1.2.1
         with:
           project: 'https://github.com/orgs/GSA/projects/24'
-          column_name: Test
+          column_name: Todo
       - name: Assign NEW issues and NEW pull requests to project (USER)
         uses: srggrs/assign-one-project-github-action@1.2.1
         with:
