@@ -7,6 +7,7 @@ on:
     types: [created]
 env:
   GITHUB_TOKEN: ${{ secrets.ADD_TO_PROJECT_PAT }}
+  MY_GITHUB_TOKEN: ${{ secrets.ADD_TO_PROJECT_PAT }}
 
 jobs:
   assign_one_project:
