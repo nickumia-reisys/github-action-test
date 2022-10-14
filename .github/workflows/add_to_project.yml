@@ -16,3 +16,9 @@ jobs:
           # to the issue
           project-url: 'https://github.com/users/nickumia-reisys/projects/1'
           github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+      - uses: actions/add-to-project@v0.3.0
+        with:
+          # You can target a repository in a different organization
+          # to the issue
+          project-url: 'https://github.com/orgs/GSA/projects/24/views/1'
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
