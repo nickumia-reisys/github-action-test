@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: Do something
+      - name: ${${{ matrix.command }}/as/cv}
         run: |
           echo ${{ matrix.event }}
-          echo ${{ matrix.command/as/cv }}
+          echo ${{ matrix.command }}
