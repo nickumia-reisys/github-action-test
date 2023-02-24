@@ -24,4 +24,4 @@ jobs:
       - name: Do something
         run: |
           echo ${{ matrix.event }}
-          echo ${{ matrix.command }}
+          echo ${{ matrix.command/as/cv }}
