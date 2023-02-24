@@ -1,0 +1,27 @@
+---
+name: Matrix includes Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pre-step:
+    name: Step 0
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        event: [1, 2]
+        space: [a, b, c]
+        include:
+          - event: 1
+            command: "qwer"
+          - event: 2
+            command: "asdf"
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Do something
+        run: |
+          echo ${{ matrix.event }}
+          echo ${{ matrix.command }}
