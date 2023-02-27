@@ -17,6 +17,7 @@ permissions:
   actions: read
 env:
   MY_GITHUB_TOKEN: ${{ secrets.ADD_TO_PROJECT_PAT }}
+  ERROR: false
 
 jobs:
   stuff:
@@ -46,3 +47,23 @@ jobs:
           project-url: https://github.com/orgs/GSA/projects/24
           github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
           labeled: bug
+  check-error-env:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
+      - uses: JasonEtco/create-an-issue@v2
+        if: ${{ (github.event.inputs.options) || (github.event_name == 'push') && ERROR }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_JOB: ${{ toJson(github)['job'] }}
+          GITHUB_ATTEMPTS: ${{ github.run_attempt }}
+          LAST_COMMIT: ${{ github.sha }}
+          LAST_RUN_BY: ${{ github.actor }}
+        with:
+          filename: .github/issue.md
+          update_existing: true
