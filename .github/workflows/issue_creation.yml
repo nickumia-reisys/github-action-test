@@ -57,7 +57,7 @@ jobs:
         run: |
           echo "$GITHUB_CONTEXT"
       - uses: JasonEtco/create-an-issue@v2
-        if: ${{ ((github.event.inputs.options) || (github.event_name == 'push')) && env.ERROR }}
+        if: ${{ (github.event.inputs.options) || (github.event_name == 'push') && (env.ERROR == true) }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_JOB: ${{ toJson(github)['job'] }}
