@@ -19,4 +19,4 @@ jobs:
       - name: Check output
         run: |
           echo ${{ toJson(steps) }}
-          echo ${{ toJson(steps.build) }}
+          echo ${{ toJson(steps.build.outputs) }}
