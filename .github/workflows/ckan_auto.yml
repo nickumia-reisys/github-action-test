@@ -13,42 +13,43 @@ env:
   TEST: '0/5 * * * *'
 
 jobs:
+  setup-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.generate-matrix.outputs.matrix }}
+    steps:
+      - name: Generate Matrix
+        id: generate-matrix
+        run: |
+          read -r -d '' MATRIX << MAT
+          {
+            'schedule': ['30 7 * * *', '0 3 * * *', "${{env.TEST}}", '0 4 * * *', '0 5 * * *'],
+            'environ': ['development', 'staging', 'prod'],
+            'include': [ {'app': 'catalog-admin'},
+                         {'schedule': "${{env.TEST}}", 'command': "ckan harvester run"},
+                         {'schedule': "30 7 * * *", 'command': "ckan geodatagov tracking-update"},
+                         {'schedule': "0 3 * * *", 'command': "ckan geodatagov sitemap-to-s3"},
+                         {'schedule': "0 3 * * *", 'app': "catalog-gather"},
+                         {'schedule': "0 4 * * *", 'command': "ckan geodatagov db-solr-sync"},
+                         {'schedule': "0 5 * * *", 'command': "ckan geodatagov check-stuck-jobs"},
+                         {'environ': 'development', 'ram': '1G'},
+                         {'environ': 'staging', 'ram': '1G'},
+                         {'environ': 'prod', 'ram': '1G'}
+                       ],
+            'exclude': [ {'schedule': "0 3 * * *", 'environ': 'development'},
+                         {'schedule': "0 3 * * *", 'environ': 'staging'},
+                         {'schedule': "0 5 * * *", 'environ': 'staging'},
+          }
+          MAT
+          echo ::set-output name=services::${MATRIX}
+
   ckan-auto-command:
+    needs:
+      - setup-matrix
     strategy:
       max-parallel: 1
       fail-fast: false
-      matrix:
-        schedule: ['30 7 * * *', '0 3 * * *', "${{env.TEST}}", '0 4 * * *', '0 5 * * *']   # yamllint disable-line rule:line-length
-        environ: [development, staging, prod]
-        include:
-          - app: catalog-admin
-          - schedule: '30 7 * * *'
-            command: "ckan geodatagov tracking-update"
-          - schedule: "${{env.TEST}}"
-            command: "ckan harvester run"
-          - schedule: '0 4 * * *'
-            command: "ckan geodatagov db-solr-sync"
-          - schedule: '0 5 * * *'
-            command: "ckan geodatagov check-stuck-jobs"
-          - schedule: '0 3 * * *'
-            command: "ckan geodatagov sitemap-to-s3"
-          - schedule: '0 3 * * *'
-            app: catalog-gather
-          - environ: development
-            ram: 1G
-          - environ: staging
-            ram: 3G
-          - environ: prod
-            ram: 3G
-        exclude:
-          - schedule: '0 3 * * *'
-            environ: development
-          - schedule: '0 3 * * *'
-            environ: staging
-          - schedule: '0 5 * * *'
-            environ: development
-          - schedule: '0 * * * *'
-            environ: [development, staging]
+      matrix:  ${{ fromJSON(needs.setup-matrix.outputs.matrix) }}
     name: ${{ matrix.command }} - ${{matrix.environ}}
     runs-on: ubuntu-latest
     environment: ${{matrix.environ}}
