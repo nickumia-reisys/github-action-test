@@ -2,6 +2,7 @@
 name: 4 - Automated CKAN Jobs
 
 on:   # yamllint disable-line rule:truthy
+  workflow_distpatch:
   schedule:
     - cron: '30 7 * * *'       # Tracking Update -- every day at 7:30am UTC
     - cron: '0 3 * * *'        # S3 Sitemap Update -- every day at 3am UTC
@@ -21,7 +22,7 @@ jobs:
       - name: Generate Matrix
         id: generate-matrix
         run: |
-          read -r -d '' MATRIX << MAT
+          MATRIX=$(cat << MAT
           {
             'schedule': ['30 7 * * *', '0 3 * * *', "${{env.TEST}}", '0 4 * * *', '0 5 * * *'],
             'environ': ['development', 'staging', 'prod'],
@@ -41,6 +42,7 @@ jobs:
                          {'schedule': "0 5 * * *", 'environ': 'staging'},
           }
           MAT
+          )
           echo ::set-output name=services::${MATRIX}
 
   ckan-auto-command:
