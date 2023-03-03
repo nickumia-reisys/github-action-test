@@ -39,7 +39,8 @@ jobs:
                        ],
             "exclude": [ {"schedule": "0 3 * * *", "environ": "development"},
                          {"schedule": "0 3 * * *", "environ": "staging"},
-                         {"schedule": "0 5 * * *", "environ": "staging"},
+                         {"schedule": "0 5 * * *", "environ": "staging"}
+                       ],
           }
           MAT
           )
