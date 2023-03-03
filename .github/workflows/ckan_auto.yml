@@ -43,7 +43,8 @@ jobs:
           }
           MAT
           )
-          echo ::set-output name=services::${MATRIX}
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+          echo $MATRIX
 
   ckan-auto-command:
     needs:
