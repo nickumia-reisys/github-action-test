@@ -72,5 +72,4 @@ jobs:
         if: ${{ github.event.schedule == matrix.schedule }}
         run: |
           echo ${{ matrix.command }}
-          echo ${{ matrix.schedule }}
           echo ${{ matrix.app }}
