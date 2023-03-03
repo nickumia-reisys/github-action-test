@@ -15,13 +15,13 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        schedule: ['30 7 * * *', '0 3 * * *', '11/15 * * * *', '0 4 * * *', '0 5 * * *']   # yamllint disable-line rule:line-length
+        schedule: ['30 7 * * *', '0 3 * * *', '0 * * * *', '0 4 * * *', '0 5 * * *']   # yamllint disable-line rule:line-length
         environ: [development, staging, prod]
         include:
           - app: catalog-admin
           - schedule: '30 7 * * *'
             command: "ckan geodatagov tracking-update"
-          - schedule: '11/15 * * * *'
+          - schedule: '0 * * * *'
             command: "ckan harvester run"
           - schedule: '0 4 * * *'
             command: "ckan geodatagov db-solr-sync"
@@ -44,6 +44,8 @@ jobs:
             environ: staging
           - schedule: '0 5 * * *'
             environ: development
+          - schedule: '0 * * * *'
+            environ: [development, staging]
     name: ${{ matrix.command }} - ${{matrix.environ}}
     runs-on: ubuntu-latest
     environment: ${{matrix.environ}}
