@@ -5,9 +5,12 @@ on:   # yamllint disable-line rule:truthy
   schedule:
     - cron: '30 7 * * *'       # Tracking Update -- every day at 7:30am UTC
     - cron: '0 3 * * *'        # S3 Sitemap Update -- every day at 3am UTC
-    - cron: '0 * * * *'        # Harvester Check -- every 15 mins
+    - cron: ${{ env.TEST }}        # Harvester Check -- every 15 mins
     - cron: '0 4 * * *'        # DB-Solr-Sync -- every day at 4am UTC
     - cron: '0 5 * * *'        # Check Stuck Jobs -- every day at 5am UTC
+
+env:
+  TEST: '0/5 * * * *'
 
 jobs:
   ckan-auto-command:
@@ -15,13 +18,13 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        schedule: ['30 7 * * *', '0 3 * * *', '0 * * * *', '0 4 * * *', '0 5 * * *']   # yamllint disable-line rule:line-length
+        schedule: ['30 7 * * *', '0 3 * * *', ${{ env.TEST }}, '0 4 * * *', '0 5 * * *']   # yamllint disable-line rule:line-length
         environ: [development, staging, prod]
         include:
           - app: catalog-admin
           - schedule: '30 7 * * *'
             command: "ckan geodatagov tracking-update"
-          - schedule: '0 * * * *'
+          - schedule: ${{ env.TEST }}
             command: "ckan harvester run"
           - schedule: '0 4 * * *'
             command: "ckan geodatagov db-solr-sync"
