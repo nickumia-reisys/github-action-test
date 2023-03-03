@@ -43,7 +43,9 @@ jobs:
           }
           MAT
           )
-          echo "matrix=$MATRIX" >> $GITHUB_ENV
+          echo "matrix<<EOF" >> $GITHUB_OUTPUT
+          echo "$MATRIX" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
           echo $MATRIX
 
   ckan-auto-command:
@@ -52,8 +54,7 @@ jobs:
     strategy:
       max-parallel: 1
       fail-fast: false
-      # matrix:  ${{ fromJSON(needs.setup-matrix.outputs.matrix) }}
-      matrix:  ${{ fromJSON(env.MATRIX) }}
+      matrix:  ${{ fromJSON(needs.setup-matrix.outputs.matrix) }}
     name: ${{ matrix.command }} - ${{matrix.environ}}
     runs-on: ubuntu-latest
     environment: ${{matrix.environ}}
