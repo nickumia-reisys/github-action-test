@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@v3
       - name: if bool
         run: |
-          if [[ ${{ inputs.run }} ]]; then
+          if [[ "${{ inputs.run }}" == "true" ]]; then
             echo "Boolean was true!"
           else
             echo "Boolean was false!!"
