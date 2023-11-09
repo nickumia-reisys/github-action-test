@@ -3,9 +3,13 @@ name: Substring test
 
 on:
   workflow_dispatch:
+    inputs:
+      run:
+        required: true
+        type: boolean
 
 jobs:
-  deploy:
+  substring:
     name: substring
     runs-on: ubuntu-latest
     steps:
@@ -21,3 +25,17 @@ jobs:
 
           echo "$repo_name"
           echo $repo_name
+
+  boolean_input:
+    name: bool in
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: if bool
+        run: |
+          if [[ ${{ inputs.run }} ]]; then
+            echo "Boolean was true!"
+          else
+            echo "Boolean was false!!"
+          fi
