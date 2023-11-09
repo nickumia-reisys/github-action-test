@@ -15,6 +15,6 @@ jobs:
       run: |
         export VERSION=v4.2.0 BINARY=yq_linux_amd64
         sudo apt-get update && sudo apt-get install curl
-        curl -sL https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY}.tar.gz | tar xz && mv ${BINARY} /usr/bin/yq
+        curl -sL https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY}.tar.gz | tar xz && sudo mv ${BINARY} /usr/bin/yq
         yq --help
         yq --version
