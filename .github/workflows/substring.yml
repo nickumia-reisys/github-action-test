@@ -1,0 +1,25 @@
+---
+name: Substring test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: substring
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: echo substring
+        run: |
+          repo_name=${{ github.reposity#*/ }}
+
+          echo "${{ github.reposity#*/ }}"
+          echo ${{ github.reposity }}
+
+          echo "${{ github.reposity#*/ }}"
+          echo ${{ github.reposity#*/ }}
+
+          echo "$repo_name"
+          echo $repo_name
