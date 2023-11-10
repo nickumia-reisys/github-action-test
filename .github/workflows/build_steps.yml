@@ -96,7 +96,7 @@ jobs:
     name: Step A
     if: ${{ inputs.scenario == 'Matrix Needs' }}
     runs-on: ubuntu-latest
-    needs: pre-step
+    needs: matrix-needs-1
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -107,7 +107,7 @@ jobs:
     name: Step B
     if: ${{ inputs.scenario == 'Matrix Needs' }}
     runs-on: ubuntu-latest
-    needs: pre-step
+    needs: matrix-needs-1
     steps:
       - name: checkout
         uses: actions/checkout@v2
