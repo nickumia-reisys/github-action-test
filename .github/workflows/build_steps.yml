@@ -16,7 +16,6 @@ on:   # yamllint disable-line rule:truthy
           - 'Substring'
           - 'Boolean Input Bash Test'
           - 'YQ test'
-    inputs:
       run:
         required: false
         type: boolean
