@@ -22,8 +22,6 @@ on:   # yamllint disable-line rule:truthy
         type: boolean
 
 jobs:
-
-jobs:
   gh-output:
     name: check last step
     if: ${{ inputs.scenario == 'Github Build Output' }}
