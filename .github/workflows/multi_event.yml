@@ -4,7 +4,9 @@ name: Build Checks
 on:
   push:
   pull_request:
-    types: [opened]
+    types: 
+      - opened
+      - labeled
   workflow_dispatch:
 
 jobs:
@@ -29,7 +31,10 @@ jobs:
           flake8 . --count --show-source --statistics
 
   build:
-    if: ${{ github.event_name == 'pull_request' && github.event.action == 'opened' || github.event_name == 'workflow_dispatch' }}
+    if: ${{
+      github.event_name == 'pull_request' && github.event.action == 'opened' ||
+      github.event_name == 'pull_request' && github.event.action == 'labeled' ||
+      github.event_name == 'workflow_dispatch' }}
     name: Build
     needs:
       - lint
