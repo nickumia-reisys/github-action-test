@@ -170,12 +170,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-        cat <<- EOF > test.yaml
-        image:
-          tag: something
-        EOF
-        pwd
-        ls
+          cat <<- EOF > test.yaml
+          image:
+            tag: something
+          EOF
+          pwd
+          ls
       - name: get image tag
         id: image_tag
         uses: mikefarah/yq@v4.35.2
@@ -184,6 +184,6 @@ jobs:
             ls; pwd;
             yq '.image.tag = something cooler' test.yaml
       - run: |
-        ls
-        pwd
-        cat test.yaml
+          ls
+          pwd
+          cat test.yaml
