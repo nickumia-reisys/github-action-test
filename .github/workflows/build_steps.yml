@@ -16,6 +16,7 @@ on:   # yamllint disable-line rule:truthy
           - 'Substring'
           - 'Boolean Input Bash Test'
           - 'YQ test'
+          - 'YQ test folder'
       run:
         required: false
         type: boolean
@@ -162,3 +163,27 @@ jobs:
         curl -sL https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY}.tar.gz | tar xz && sudo mv ${BINARY} /usr/bin/yq
         yq --help
         yq --version
+
+  test-npm:
+    name: 'YQ Action Working Dir'
+    if: ${{ inputs.scenario == 'YQ test folder' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+        cat <<- EOF > test.yaml
+        image:
+          tag: something
+        EOF
+        pwd
+        ls
+      - name: get image tag
+        id: image_tag
+        uses: mikefarah/yq@v4.35.2
+        with:
+          cmd: |
+            ls; pwd;
+            yq '.image.tag = something cooler' test.yaml
+      - run: |
+        ls
+        pwd
+        cat test.yaml
