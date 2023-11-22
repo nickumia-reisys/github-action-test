@@ -169,8 +169,12 @@ jobs:
     if: ${{ inputs.scenario == 'YQ test folder' }}
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          path: 'test'
       - run: |
-          cat <<- EOF > test.yaml
+          cat <<- EOF > test/test.yaml
           image:
             tag: something
           EOF
@@ -182,8 +186,8 @@ jobs:
         with:
           cmd: |
             ls; pwd;
-            yq '.image.tag = something cooler' test.yaml
+            yq '.image.tag = "something cooler"' test/test.yaml
       - run: |
           ls
           pwd
-          cat test.yaml
+          cat test/test.yaml
